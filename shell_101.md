@@ -73,8 +73,6 @@ EOF
 
 <details>
 <summary>Click here if you want to see...</summary>
-<pre>
-<code>
 
 ### Environments
 
@@ -235,6 +233,4 @@ sed "s/gene/Gene/g" test.bed
 sed "s/^/chr/g" test.bed
 ```
 
-</code>
-</pre>
 </details>
