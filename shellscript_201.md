@@ -1,22 +1,61 @@
-
-# ビルトインコマンドと外部コマンドの速度の違いをしろう
-
-## 問題
-
-（おそらく）お手持ちの環境には2種類のechoが存在します。  
-`/bin/echo`と`echo`です。  
-
-- それぞれの`echo`を用いて`echo hoge > /dev/null`を1000回実行し、その計算時間を記録してください。
-
-- どちらかが遅いと思いますが、その理由を考察してください。
-
-# Recognize the difference between the speed of built-in commands and external commands
+# Subshell
 
 ## Questions
 
-There are (probably) two types of echoes in your environment.  
-`/bin/echo` and `echo`.  
+- The following code uses the bash-dependent `local` command. Please define local variables without using `local`.
 
-- Run `echo hoge > /dev/null` 1000 times with each `echo` and record the computation time.
+```bash
+var="HOGE"
+change_var() {
+  local var="FUGA"
+  echo var="$var"
+}
+change_var
+echo var="$var"
+```
 
-- Consider the reasons why one of them is slower than the other.
+- Run the following command without moving from the current directory on the current shell
+
+```sh
+suffix="$(date "+%Y%m%d-%H%M%S")"
+mkdir -p ./test_TBA_"$suffix"/test1/test2/test3
+cd  ./test_TBA_"$suffix"/test1/test2/test3
+echo 'Hello Subshell!' > test.txt
+cat test.txt
+rm -rf ./test_TBA_"$suffix"
+```
+
+-------------------------------------------------------------------------------
+
+## Example answers
+
+<details>
+<summary>Click here if you want...</summary>
+
+- The following code uses the bash-dependent `local` command. Please define local variables without using `local`.
+
+```bash
+var="HOGE"
+change_var() (
+  var="FUGA"
+  echo var="$var"
+)
+change_var
+echo var="$var"
+```
+
+- Run the following command without moving from the current directory on the current shell
+
+```sh
+suffix="$(date "+%Y%m%d-%H%M%S")"
+mkdir -p ./test_TBA_"$suffix"/test1/test2/test3
+(
+  cd  ./test_TBA_"$suffix"/test1/test2/test3
+  echo 'Hello Subshell!' > test.txt
+  cat test.txt
+)
+rm -rf ./test_TBA_"$suffix"
+```
+
+</details>
+

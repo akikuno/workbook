@@ -1,4 +1,4 @@
-## Progress bar with POSIX compliant Shell script
+# Progress bar with POSIX compliant Shell script
 
 ## Introduction
 
